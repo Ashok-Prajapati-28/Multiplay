@@ -1,0 +1,17 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build app bundle
+        run: ./build.sh
+      - name: Check bundle
+        run: |
+          test -x build/MultiPlay.app/Contents/MacOS/MultiPlay
+          plutil -lint build/MultiPlay.app/Contents/Info.plist
